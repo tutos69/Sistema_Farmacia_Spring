@@ -38,27 +38,27 @@ public class ClienteControlador {
         return ResponseEntity.ok(cliente);
     }
 
-    @GetMapping("/personas/nombre")
-    public ResponseEntity<List<String>> getNombres(){
-        List<String> listaNombre = clienteServicio.Nombres();
-        return  new ResponseEntity<List<String>>(listaNombre, HttpStatus.OK);
+    @GetMapping("/cliente")
+    public ResponseEntity<List<Cliente>> getAllPersonas(){
+        List<Cliente> personaList = clienteServicio.findAll();
+        return  new ResponseEntity<List<Cliente>>(personaList, HttpStatus.OK);
     }
 
     @DeleteMapping("/cliente/eliminar/{codigo}")
-    public  ResponseEntity<String> delitePersona(@PathVariable Long codigo) {
+    public  ResponseEntity<String> delitePersona(@PathVariable int codigo) {
+
         clienteServicio.Eliminar(codigo);
         return ResponseEntity.ok("Cliente Eliminado");
     }
 
     @PutMapping("/cliente/modificar")
     public  ResponseEntity<String> updatePersona(@RequestBody ModificarCliente modificarCliente) {
-        Long id = Long.valueOf(modificarCliente.getId());
-        Optional<Cliente> Datos= clienteServicio.findId(id);
+
+        Optional<Cliente> Datos= clienteServicio.findId(modificarCliente.getId());
         if (Datos.isEmpty()){
             return ResponseEntity.badRequest().build();
         }
         Cliente cliente = Datos.get();
-        cliente.setIdentificador(modificarCliente.getIdentificador());
         cliente.setApellido(modificarCliente.getApellido());
         cliente.setFechaNacimiento(modificarCliente.getFechaNacimiento());
         cliente.setNombre(modificarCliente.getNombre());

@@ -1,12 +1,14 @@
 package ups.edu.ec.Sistema_Farmacia_S.Servicio.Usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.Usuario;
 import ups.edu.ec.Sistema_Farmacia_S.Repositorio.UsuarioRepositorio;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UsuarioServicio {
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
@@ -14,7 +16,7 @@ public class UsuarioServicio {
         return (List<Usuario>) usuarioRepositorio.findAll();
     }
 
-    public Optional findId(Long codigo){
+    public Optional findId(int codigo){
         return (Optional)usuarioRepositorio.findById(codigo);
     }
 
@@ -22,7 +24,7 @@ public class UsuarioServicio {
         usuarioRepositorio.save(usuario);
     }
 
-    public void Eliminar(Long cosigo) {
-        usuarioRepositorio.deleteById(cosigo);
+    public void Eliminar(int codigo) {
+        usuarioRepositorio.deleteById(codigo);
     }
 }

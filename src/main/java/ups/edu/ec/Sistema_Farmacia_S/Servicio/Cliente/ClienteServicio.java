@@ -17,7 +17,7 @@ public class ClienteServicio {
         return (List<Cliente>) clienteRepositorio.findAll();
     }
 
-    public Optional findId(Long codigo){
+    public Optional findId(int codigo){
         return (Optional)clienteRepositorio.findById(codigo);
     }
 
@@ -29,8 +29,10 @@ public class ClienteServicio {
         return clienteRepositorio.finallNombres();
     }
 
-
-    public void Eliminar(Long cosigo) {
-        clienteRepositorio.deleteById(cosigo);
+    public Cliente buscaIdCliente(int id){
+        return clienteRepositorio.buscaIDCliente(id);
+    }
+    public void Eliminar(int codigo) {
+        clienteRepositorio.deleteById(codigo);
     }
 }

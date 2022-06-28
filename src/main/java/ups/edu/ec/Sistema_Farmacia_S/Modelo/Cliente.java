@@ -8,8 +8,10 @@ import java.util.Date;
         query = "SELECT c FROM Cliente c WHERE c.id >= :level")
 @Entity
 @Table(name = "cliente")
-public class Cliente extends Entidad{
+public class Cliente extends Entidad  implements Serializable{
 
+
+    @Column(name = "fecha_Nacimiento")
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
     //@OneToOne(cascade = CascadeType.ALL, mappedBy = "cliente")
