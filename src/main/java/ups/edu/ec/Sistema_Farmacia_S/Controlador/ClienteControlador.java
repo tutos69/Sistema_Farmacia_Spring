@@ -1,6 +1,7 @@
 package ups.edu.ec.Sistema_Farmacia_S.Controlador;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.Cliente;
@@ -9,6 +10,7 @@ import ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Cliente.ModificarCliente;
 import ups.edu.ec.Sistema_Farmacia_S.Repositorio.ClienteRepositorio;
 import ups.edu.ec.Sistema_Farmacia_S.Servicio.Cliente.ClienteServicio;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -31,8 +33,15 @@ public class ClienteControlador {
         cliente.setCorreo(crearCliente.getCorreo());
         cliente.setTelefono(crearCliente.getTelefono());
         cliente.setDireccion(crearCliente.getDireccion());
+
         clienteServicio.Crear(cliente);
         return ResponseEntity.ok(cliente);
+    }
+
+    @GetMapping("/personas/nombre")
+    public ResponseEntity<List<String>> getNombres(){
+        List<String> listaNombre = clienteServicio.Nombres();
+        return  new ResponseEntity<List<String>>(listaNombre, HttpStatus.OK);
     }
 
     @DeleteMapping("/cliente/eliminar/{codigo}")

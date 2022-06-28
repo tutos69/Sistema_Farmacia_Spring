@@ -25,6 +25,11 @@ public class ClienteServicio {
         clienteRepositorio.save(cliente);
     }
 
+    public List<String> Nombres(){
+        return clienteRepositorio.finallNombres();
+    }
+
+
     public void Eliminar(Long cosigo) {
         clienteRepositorio.deleteById(cosigo);
     }

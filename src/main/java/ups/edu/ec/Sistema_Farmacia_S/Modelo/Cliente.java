@@ -12,8 +12,8 @@ public class Cliente extends Entidad{
 
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "cliente")
-    private CabeceraVenta cabeceraVenta;
+    //@OneToOne(cascade = CascadeType.ALL, mappedBy = "cliente")
+    //private CabeceraVenta cabeceraVenta;
 
     public Cliente() {
     }
