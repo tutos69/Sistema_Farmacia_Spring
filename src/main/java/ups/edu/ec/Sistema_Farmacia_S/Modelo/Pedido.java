@@ -2,6 +2,7 @@ package ups.edu.ec.Sistema_Farmacia_S.Modelo;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -15,7 +16,6 @@ public class Pedido implements Serializable {
     private Usuario usuario;
     private double latitud;
     private double longitud;
-    private Detalle detalle;
     @Enumerated
     private EstadoPedido estado;
     @Column(name = "tiempo_Espera")
@@ -29,12 +29,11 @@ public class Pedido implements Serializable {
     public Pedido() {
     }
 
-    public Pedido(int id, Usuario usuario, double latitud, double longitud, Detalle detalle, EstadoPedido estado, Date tiempoEspera, double costoEnvio, List<Detalle> detalles, FormaPago formaPago) {
+    public Pedido(int id, Usuario usuario, double latitud, double longitud, EstadoPedido estado, Date tiempoEspera, double costoEnvio, List<Detalle> detalles, FormaPago formaPago) {
         this.id = id;
         this.usuario = usuario;
         this.latitud = latitud;
         this.longitud = longitud;
-        this.detalle = detalle;
         this.estado = estado;
         this.tiempoEspera = tiempoEspera;
         this.costoEnvio = costoEnvio;
@@ -42,16 +41,15 @@ public class Pedido implements Serializable {
         this.formaPago = formaPago;
     }
 
-    public Pedido(int id, Usuario usuario, double latitud, double longitud, EstadoPedido estado, Date tiempoEspera, double costoEnvio, List<Detalle> detalles, FormaPago formaPago) {
+    public Pedido(int id, Usuario usuario, double latitud, double longitud, EstadoPedido estado, Date tiempoEspera, double costoEnvio, FormaPago formaPago) {
         this.id = id;
         this.usuario = usuario;
         this.latitud = latitud;
         this.longitud = longitud;
-        this.detalle = new Detalle();
         this.estado = estado;
         this.tiempoEspera = tiempoEspera;
         this.costoEnvio = costoEnvio;
-        this.detalles = detalles;
+        this.detalles = new ArrayList<>(); //Composicion
         this.formaPago = formaPago;
     }
 
@@ -85,14 +83,6 @@ public class Pedido implements Serializable {
 
     public void setLongitud(double longitud) {
         this.longitud = longitud;
-    }
-
-    public Detalle getDetalle() {
-        return detalle;
-    }
-
-    public void setDetalle(Detalle detalle) {
-        this.detalle = detalle;
     }
 
     public EstadoPedido getEstado() {

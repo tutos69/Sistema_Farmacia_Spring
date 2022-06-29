@@ -35,7 +35,6 @@ public class PedidoControlador {
         pedido.setUsuario(crearPedido.getUsuario());
         pedido.setLatitud(crearPedido.getLatitud());
         pedido.setLongitud(crearPedido.getLongitud());
-        pedido.setDetalle(crearPedido.getDetalle());
         pedido.setEstado(crearPedido.getEstado());
         pedido.setTiempoEspera(crearPedido.getTiempoEspera());
         pedido.setCostoEnvio(crearPedido.getCostoEnvio());
@@ -56,7 +55,6 @@ public class PedidoControlador {
         pedidoEncontrado.setUsuario(actualizarPedido.getUsuario());
         pedidoEncontrado.setLatitud(actualizarPedido.getLatitud());
         pedidoEncontrado.setLongitud(actualizarPedido.getLongitud());
-        pedidoEncontrado.setDetalle(actualizarPedido.getDetalle());
         pedidoEncontrado.setEstado(actualizarPedido.getEstado());
         pedidoEncontrado.setTiempoEspera(actualizarPedido.getTiempoEspera());
         pedidoEncontrado.setCostoEnvio(actualizarPedido.getCostoEnvio());
