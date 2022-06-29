@@ -16,9 +16,6 @@ public class FormaPago implements Serializable {
     private String numeroTarjeta;
     private double vuelto;
     private int meses;
-    //@OneToOne
-    //@JoinColumn
-    //private FacturaCabecera facturaCabecera;
     public FormaPago() {
     }
 

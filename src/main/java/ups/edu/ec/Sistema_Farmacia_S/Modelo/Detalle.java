@@ -9,18 +9,18 @@ public class Detalle implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-//    private Producto producto;
+    private Producto producto;
     private int cantidad;
     private double precio;
     private double subtotal;
-    //@ManyToOne
-    //@JoinColumn //(name = "cabeceraa_id", nullable = true, referencedColumnName = "id")
-    //private CabeceraVenta cabeceraVenta;
-    //@ManyToOne
-    //@JoinColumn//(name = "cabeceraa_id", nullable = true, referencedColumnName = "id")
-    //private CabeceraCompra cabeceraCompra;
-    //@OneToOne(cascade =CascadeType.ALL ,mappedBy ="detalle" )
-    //private Kardex kardex;
+    @ManyToOne
+    @JoinColumn //(name = "cabeceraa_id", nullable = true, referencedColumnName = "id")
+    private CabeceraVenta cabeceraVenta;
+    @ManyToOne
+    @JoinColumn(name = "cabeceraa_id", nullable = true, referencedColumnName = "id")
+    private CabeceraCompra cabeceraCompra;
+    @OneToOne(cascade =CascadeType.ALL ,mappedBy ="detalle" )
+    private Kardex kardex;
     @ManyToOne
     @JoinColumn
     private Pedido pedido;
@@ -28,25 +28,17 @@ public class Detalle implements Serializable {
     public Detalle() {
     }
 
-    public Detalle(int id,  int cantidad, double precio, double subtotal, CabeceraVenta cabeceraVenta) {
+    public Detalle(int id, Producto producto, int cantidad, double precio, double subtotal, CabeceraVenta cabeceraVenta, CabeceraCompra cabeceraCompra, Kardex kardex, Pedido pedido) {
         this.id = id;
-        //this.producto = producto;
+        this.producto = producto;
         this.cantidad = cantidad;
         this.precio = precio;
         this.subtotal = subtotal;
+        this.cabeceraVenta = cabeceraVenta;
+        this.cabeceraCompra = cabeceraCompra;
+        this.kardex = kardex;
+        this.pedido = pedido;
     }
-
-    public Detalle(int id, Producto producto, int cantidad, double precio, double subtotal ) {
-        this.id = id;
-
-        this.cantidad = cantidad;
-        this.precio = precio;
-        this.subtotal = subtotal;
-
-    }
-
-
-
 
     public int getCantidad() {
         return cantidad;
