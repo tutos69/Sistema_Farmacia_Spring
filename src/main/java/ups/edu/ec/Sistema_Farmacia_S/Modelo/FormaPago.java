@@ -1,15 +1,17 @@
 package ups.edu.ec.Sistema_Farmacia_S.Modelo;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class FormaPago {
 
-    private static final long serialVersionUID = 1L;
+public class FormaPago implements Serializable {
+    private static final long serialVersionUID=1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    //private TipoPago tipoPago;
+    @Enumerated
+    private TipoPago tipoPago;
     private String nombreTitular;
     private String numeroTarjeta;
     private double vuelto;
@@ -22,7 +24,7 @@ public class FormaPago {
 
     public FormaPago(int id, TipoPago tipoPago, String nombreTitular, String numeroTarjeta, double vuelto, int meses) {
         this.id = id;
-       // this.tipoPago = tipoPago;
+        this.tipoPago = tipoPago;
         this.nombreTitular = nombreTitular;
         this.numeroTarjeta = numeroTarjeta;
         this.vuelto = vuelto;
@@ -39,7 +41,13 @@ public class FormaPago {
         this.id = id;
     }
 
+    public TipoPago getTipoPago() {
+        return tipoPago;
+    }
 
+    public void setTipoPago(TipoPago tipoPago) {
+        this.tipoPago = tipoPago;
+    }
 
 
     public String getNombreTitular() {
@@ -96,8 +104,7 @@ public class FormaPago {
 
     @Override
     public String toString() {
-        return "FormaPago{" + "id=" + id + ", tipoPago="  + ", nombreTitular=" + nombreTitular + ", numeroTarjeta=" + numeroTarjeta + ", vuelto=" + vuelto + ", meses=" + meses + '}';
+        return "FormaPago{" + "id=" + id + ", tipoPago=" + tipoPago + ", nombreTitular=" + nombreTitular + ", numeroTarjeta=" + numeroTarjeta + ", vuelto=" + vuelto + ", meses=" + meses + '}';
     }
-
 
 }
