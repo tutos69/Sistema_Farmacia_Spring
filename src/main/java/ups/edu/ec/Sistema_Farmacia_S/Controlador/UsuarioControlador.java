@@ -2,18 +2,15 @@ package ups.edu.ec.Sistema_Farmacia_S.Controlador;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.Cliente;
-import ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Cliente.ModificarCliente;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Usuario.CrearUsuario;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Usuario.ModificarUsuario;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.Usuario;
 import ups.edu.ec.Sistema_Farmacia_S.Servicio.Cliente.ClienteServicio;
 import ups.edu.ec.Sistema_Farmacia_S.Servicio.Usuario.UsuarioServicio;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController

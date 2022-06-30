@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.Cliente;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Cliente.CrearCliente;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Cliente.ModificarCliente;
-import ups.edu.ec.Sistema_Farmacia_S.Repositorio.ClienteRepositorio;
 import ups.edu.ec.Sistema_Farmacia_S.Servicio.Cliente.ClienteServicio;
 
 import java.util.List;

@@ -24,7 +24,10 @@ public class CrearDetalle {
     @JsonProperty
     private Kardex kardex;
     @JsonProperty
-    private Pedido pedido;
+    private int pedido;
+
+    public CrearDetalle() {
+    }
 
     public int getProducto() {
         return producto;
@@ -82,11 +85,11 @@ public class CrearDetalle {
         this.kardex = kardex;
     }
 
-    public Pedido getPedido() {
+    public int getPedido() {
         return pedido;
     }
 
-    public void setPedido(Pedido pedido) {
+    public void setPedido(int pedido) {
         this.pedido = pedido;
     }
 }

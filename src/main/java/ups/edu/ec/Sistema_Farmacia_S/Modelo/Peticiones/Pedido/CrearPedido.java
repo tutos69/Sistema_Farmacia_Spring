@@ -11,30 +11,39 @@ import java.util.List;
 
 public class CrearPedido {
     @JsonProperty
-    private Usuario usuario;
+    private int usuario;
     @JsonProperty
     private double latitud;
     @JsonProperty
     private double longitud;
-    @JsonProperty
-    private Detalle detalle;
+
     @JsonProperty
     private EstadoPedido estado;
     @JsonProperty
     private Date tiempoEspera;
     @JsonProperty
     private double costoEnvio;
-    @JsonProperty
-    private List<Detalle> detalles;
-    @JsonProperty
-    private FormaPago formaPago;
 
-    public Usuario getUsuario() {
+    @JsonProperty
+    private int formaPago;
+
+    public CrearPedido() {
+    }
+
+    public int getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(int usuario) {
         this.usuario = usuario;
+    }
+
+    public int getFormaPago() {
+        return formaPago;
+    }
+
+    public void setFormaPago(int formaPago) {
+        this.formaPago = formaPago;
     }
 
     public double getLatitud() {
@@ -53,13 +62,6 @@ public class CrearPedido {
         this.longitud = longitud;
     }
 
-    public Detalle getDetalle() {
-        return detalle;
-    }
-
-    public void setDetalle(Detalle detalle) {
-        this.detalle = detalle;
-    }
 
     public EstadoPedido getEstado() {
         return estado;
@@ -85,19 +87,5 @@ public class CrearPedido {
         this.costoEnvio = costoEnvio;
     }
 
-    public List<Detalle> getDetalles() {
-        return detalles;
-    }
 
-    public void setDetalles(List<Detalle> detalles) {
-        this.detalles = detalles;
-    }
-
-    public FormaPago getFormaPago() {
-        return formaPago;
-    }
-
-    public void setFormaPago(FormaPago formaPago) {
-        this.formaPago = formaPago;
-    }
 }
