@@ -9,6 +9,9 @@ public class Detalle implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @OneToOne
+    @JoinColumn(name = "producto_id")
     private Producto producto;
     private int cantidad;
     private double precio;
@@ -24,6 +27,14 @@ public class Detalle implements Serializable {
     @ManyToOne
     @JoinColumn
     private Pedido pedido;
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
 
     public Detalle() {
     }
