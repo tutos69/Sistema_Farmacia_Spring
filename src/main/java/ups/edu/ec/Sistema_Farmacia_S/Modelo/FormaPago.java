@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-
+@Table(name = "formaPago")
 public class FormaPago implements Serializable {
     private static final long serialVersionUID=1L;
     @Id

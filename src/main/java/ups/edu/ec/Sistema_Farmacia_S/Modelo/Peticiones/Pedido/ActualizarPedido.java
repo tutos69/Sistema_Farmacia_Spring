@@ -11,9 +11,9 @@ import java.util.List;
 
 public class ActualizarPedido {
     @JsonProperty
-    private int id;
+    private int id;//se pone el id para poder buscar al objeto
     @JsonProperty
-    private Usuario usuario;
+    private int usuario;
     @JsonProperty
     private double latitud;
     @JsonProperty
@@ -29,7 +29,7 @@ public class ActualizarPedido {
     @JsonProperty
     private List<Detalle> detalles;
     @JsonProperty
-    private FormaPago formaPago;
+    private int formaPago;
 
     public int getId() {
         return id;
@@ -39,11 +39,11 @@ public class ActualizarPedido {
         this.id = id;
     }
 
-    public Usuario getUsuario() {
+    public int getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(int usuario) {
         this.usuario = usuario;
     }
 
@@ -103,11 +103,11 @@ public class ActualizarPedido {
         this.detalles = detalles;
     }
 
-    public FormaPago getFormaPago() {
+    public int getFormaPago() {
         return formaPago;
     }
 
-    public void setFormaPago(FormaPago formaPago) {
+    public void setFormaPago(int formaPago) {
         this.formaPago = formaPago;
     }
 }
