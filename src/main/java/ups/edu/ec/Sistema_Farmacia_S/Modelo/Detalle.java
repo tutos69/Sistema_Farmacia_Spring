@@ -84,9 +84,13 @@ public class Detalle implements Serializable {
     }
 
 
+    public Pedido getPedido() {
+        return pedido;
+    }
 
-
-
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
 
     @Override
     public int hashCode() {
