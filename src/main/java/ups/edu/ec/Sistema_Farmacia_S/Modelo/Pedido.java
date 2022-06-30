@@ -13,6 +13,8 @@ public class Pedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @OneToOne
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
     private double latitud;
     private double longitud;
