@@ -6,7 +6,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "entidad")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Entidad  implements Serializable {
+public class Entidad implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,7 +43,6 @@ public class Entidad  implements Serializable {
         this.direccion = direccion;
         this.telefono = telefono;
     }
-
 
 
     public int getId() {
@@ -109,7 +108,6 @@ public class Entidad  implements Serializable {
     public void setEditable(boolean editable) {
         this.editable = editable;
     }
-
 
 
     @Override

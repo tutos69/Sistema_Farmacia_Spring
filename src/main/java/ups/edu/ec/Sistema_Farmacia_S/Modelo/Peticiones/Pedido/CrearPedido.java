@@ -1,13 +1,9 @@
 package ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Pedido;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ups.edu.ec.Sistema_Farmacia_S.Modelo.Detalle;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.EstadoPedido;
-import ups.edu.ec.Sistema_Farmacia_S.Modelo.FormaPago;
-import ups.edu.ec.Sistema_Farmacia_S.Modelo.Usuario;
 
 import java.util.Date;
-import java.util.List;
 
 public class CrearPedido {
     @JsonProperty

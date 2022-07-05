@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class FormaPagoNoEncontradoException extends RuntimeException {
     public FormaPagoNoEncontradoException() {
     }
+
     public FormaPagoNoEncontradoException(String message) {
         super(message);
     }

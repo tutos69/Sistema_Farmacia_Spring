@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.TipoPago;
 
 
-
 public class CrearFormaPago {
 
     @JsonProperty

@@ -14,23 +14,21 @@ public class ProductoServicio {
     @Autowired
     private ProductoRepositorio productoRepositorio;
 
-    public List<Producto> findAll(){
+    public List<Producto> findAll() {
         return (List<Producto>) productoRepositorio.findAll();
     }
 
-    public Optional<Producto> findById(int id){
+    public Optional<Producto> findById(int id) {
         return (Optional<Producto>) productoRepositorio.findById(id);
     }
 
-    public List<Producto> findProductobyCategoria(int idCategoria){
+    public List<Producto> findProductobyCategoria(int idCategoria) {
         return (List<Producto>) productoRepositorio.finallCategoriaProducto(idCategoria);
     }
 
-    public List<Producto> findProductobySucursal(int id){
-        return (List<Producto>) productoRepositorio.finallSucursalProducto(id);
-    }
 
-    public void save(Producto producto){
+
+    public void save(Producto producto) {
         productoRepositorio.save(producto);
     }
 }

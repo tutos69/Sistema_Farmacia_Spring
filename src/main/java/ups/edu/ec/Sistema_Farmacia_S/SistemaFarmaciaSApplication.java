@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SistemaFarmaciaSApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SistemaFarmaciaSApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SistemaFarmaciaSApplication.class, args);
+    }
 
 }

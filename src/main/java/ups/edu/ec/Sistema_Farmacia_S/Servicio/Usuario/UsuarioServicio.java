@@ -12,19 +12,26 @@ import java.util.Optional;
 public class UsuarioServicio {
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
-    public List<Usuario> findAll(){
+
+    public List<Usuario> findAll() {
         return (List<Usuario>) usuarioRepositorio.findAll();
     }
 
-    public Optional findId(int codigo){
-        return (Optional)usuarioRepositorio.findById(codigo);
+    public Optional findId(int codigo) {
+        return (Optional) usuarioRepositorio.findById(codigo);
     }
 
-    public void Crear(Usuario usuario){
+    public void Crear(Usuario usuario) {
         usuarioRepositorio.save(usuario);
     }
 
     public void Eliminar(int codigo) {
         usuarioRepositorio.deleteById(codigo);
     }
+
+    public Usuario EncontrarUsuario(String usuario, String contrasenia){
+         return usuarioRepositorio.findUsuario(usuario,contrasenia);
+    }
+
+
 }

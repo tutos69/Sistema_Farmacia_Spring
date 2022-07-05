@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- *
  * @author pcuser
  */
 @Entity
@@ -16,7 +15,7 @@ public class FacturaCabecera implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Temporal(TemporalType.DATE)
     private Date fecha;
@@ -103,6 +102,4 @@ public class FacturaCabecera implements Serializable {
     public String toString() {
         return "FacturaCabecera{" + "id=" + id + ", fecha=" + fecha + ", subtotal=" + subtotal + ", total=" + total + ", estado=" + estado + '}';
     }
-
-
 }

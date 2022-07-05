@@ -7,11 +7,9 @@ import ups.edu.ec.Sistema_Farmacia_S.Modelo.Producto;
 
 import java.util.List;
 
-public interface ProductoRepositorio extends CrudRepository<Producto,Integer> {
+public interface ProductoRepositorio extends CrudRepository<Producto, Integer> {
 
     @Query("select p from Producto p where p.categoria.id=:idCategoria")
     List<Producto> finallCategoriaProducto(int idCategoria);
 
-    @Query("select p from Producto p where p.sucursal.id=:id")
-    List<Producto> finallSucursalProducto(int id);
 }

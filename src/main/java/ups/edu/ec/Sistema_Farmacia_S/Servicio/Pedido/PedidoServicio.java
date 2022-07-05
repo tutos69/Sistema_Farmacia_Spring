@@ -13,25 +13,22 @@ public class PedidoServicio {
     @Autowired
     private PedidoRepositorio pedidoRepositorio;
 
-    public List<Pedido> findAll(){
+    public List<Pedido> findAll() {
         return (List<Pedido>) pedidoRepositorio.findAll();
     }
-    public Optional<Pedido> findById(int id){
+
+    public Optional<Pedido> findById(int id) {
         return (Optional<Pedido>) pedidoRepositorio.findById(id);
     }
 
-    public void save(Pedido pedido){
+    public void save(Pedido pedido) {
         pedidoRepositorio.save(pedido);
     }
 
 
-    public void delete(int id){
+    public void delete(int id) {
         pedidoRepositorio.deleteById(id);
     }
-
-
-
-
 
 
 }

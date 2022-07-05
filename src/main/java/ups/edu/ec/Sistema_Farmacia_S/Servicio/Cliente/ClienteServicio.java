@@ -13,25 +13,26 @@ public class ClienteServicio {
     @Autowired
     private ClienteRepositorio clienteRepositorio;
 
-    public List<Cliente> findAll(){
+    public List<Cliente> findAll() {
         return (List<Cliente>) clienteRepositorio.findAll();
     }
 
-    public Optional findId(int codigo){
-        return (Optional)clienteRepositorio.findById(codigo);
+    public Optional findId(int codigo) {
+        return (Optional) clienteRepositorio.findById(codigo);
     }
 
-    public void Crear(Cliente cliente){
+    public void Crear(Cliente cliente) {
         clienteRepositorio.save(cliente);
     }
 
-    public List<String> Nombres(){
+    public List<String> Nombres() {
         return clienteRepositorio.finallNombres();
     }
 
-    public Cliente buscaIdCliente(int id){
-        return clienteRepositorio.buscaIDCliente(id);
+    public Cliente buscaIdCliente(String cedula) {
+        return clienteRepositorio.buscaIDCliente(cedula);
     }
+
     public void Eliminar(int codigo) {
         clienteRepositorio.deleteById(codigo);
     }

@@ -38,23 +38,23 @@ public class ClienteControlador {
     }
 
     @GetMapping("/cliente")
-    public ResponseEntity<List<Cliente>> getAllPersonas(){
+    public ResponseEntity<List<Cliente>> getAllPersonas() {
         List<Cliente> personaList = clienteServicio.findAll();
-        return  new ResponseEntity<List<Cliente>>(personaList, HttpStatus.OK);
+        return new ResponseEntity<List<Cliente>>(personaList, HttpStatus.OK);
     }
 
     @DeleteMapping("/cliente/eliminar/{codigo}")
-    public  ResponseEntity<String> delitePersona(@PathVariable int codigo) {
+    public ResponseEntity<String> delitePersona(@PathVariable int codigo) {
 
         clienteServicio.Eliminar(codigo);
         return ResponseEntity.ok("Cliente Eliminado");
     }
 
     @PutMapping("/cliente/modificar")
-    public  ResponseEntity<String> updatePersona(@RequestBody ModificarCliente modificarCliente) {
+    public ResponseEntity<String> updatePersona(@RequestBody ModificarCliente modificarCliente) {
 
-        Optional<Cliente> Datos= clienteServicio.findId(modificarCliente.getId());
-        if (Datos.isEmpty()){
+        Optional<Cliente> Datos = clienteServicio.findId(modificarCliente.getId());
+        if (Datos.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
         Cliente cliente = Datos.get();
