@@ -1,10 +1,7 @@
 package ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Pedido;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ups.edu.ec.Sistema_Farmacia_S.Modelo.Detalle;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.EstadoPedido;
-import ups.edu.ec.Sistema_Farmacia_S.Modelo.FormaPago;
-import ups.edu.ec.Sistema_Farmacia_S.Modelo.Usuario;
 
 import java.util.Date;
 import java.util.List;
@@ -19,7 +16,7 @@ public class ActualizarPedido {
     @JsonProperty
     private double longitud;
     @JsonProperty
-    private Detalle detalle;
+    private String detalle;
     @JsonProperty
     private EstadoPedido estado;
     @JsonProperty
@@ -27,7 +24,7 @@ public class ActualizarPedido {
     @JsonProperty
     private double costoEnvio;
     @JsonProperty
-    private List<Detalle> detalles;
+    private List<String> detalles;
     @JsonProperty
     private int formaPago;
 
@@ -63,13 +60,7 @@ public class ActualizarPedido {
         this.longitud = longitud;
     }
 
-    public Detalle getDetalle() {
-        return detalle;
-    }
 
-    public void setDetalle(Detalle detalle) {
-        this.detalle = detalle;
-    }
 
     public EstadoPedido getEstado() {
         return estado;
@@ -95,11 +86,11 @@ public class ActualizarPedido {
         this.costoEnvio = costoEnvio;
     }
 
-    public List<Detalle> getDetalles() {
+    public List<String> getDetalles() {
         return detalles;
     }
 
-    public void setDetalles(List<Detalle> detalles) {
+    public void setDetalles(List<String> detalles) {
         this.detalles = detalles;
     }
 

@@ -6,19 +6,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Column;
+
 @Entity
+
+@Table(name = "Sucursal")
+@NamedQueries({
+        @NamedQuery(name = "sucursal.findAll", query = "SELECT s FROM Sucursal s")})
 public class Sucursal implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String direccion;
+    @Column(name = "nombre_clave")
     private String nombreClave;
     private String telefono;
     private double latitud;
     private double longitud;
-
 
     public Sucursal() {
     }
@@ -79,6 +88,7 @@ public class Sucursal implements Serializable {
     public void setLongitud(double longitud) {
         this.longitud = longitud;
     }
+
 
 
     @Override

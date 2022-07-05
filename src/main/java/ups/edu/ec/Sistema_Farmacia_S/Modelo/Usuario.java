@@ -1,10 +1,11 @@
 package ups.edu.ec.Sistema_Farmacia_S.Modelo;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 
-public class Usuario  implements Serializable{
+public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -18,6 +19,7 @@ public class Usuario  implements Serializable{
     private Entidad entidad;
     @Transient
     private boolean editable;
+
     public Usuario() {
     }
 
@@ -98,6 +100,9 @@ public class Usuario  implements Serializable{
         final Usuario other = (Usuario) obj;
         return this.id == other.id;
     }
+
+
+
 
     @Override
     public String toString() {

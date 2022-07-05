@@ -14,20 +14,22 @@ public class FormaPagoServicio {
     @Autowired
     private FormaPagoRepositorio formaPagoRepositorio;
 
-    public List<FormaPago> findAll(){
+    public List<FormaPago> findAll() {
         return (List<FormaPago>) formaPagoRepositorio.findAll();
     }
-    public Optional<FormaPago> findById(int id){
+
+    public Optional<FormaPago> findById(int id) {
         return (Optional<FormaPago>) formaPagoRepositorio.findById(id);
     }
 //    public Optional findById(int id){
 //        return (Optional) formaPagoRepositorio.findById(id);
 //   }
 
-    public void save(FormaPago formaPago){
+    public void save(FormaPago formaPago) {
         formaPagoRepositorio.save(formaPago);
     }
-    public void delete(int id){
+
+    public void delete(int id) {
         formaPagoRepositorio.deleteById(id);
     }
 

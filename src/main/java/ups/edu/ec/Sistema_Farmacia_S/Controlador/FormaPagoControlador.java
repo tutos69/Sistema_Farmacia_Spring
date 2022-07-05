@@ -28,13 +28,13 @@ public class FormaPagoControlador {
     }
 
     @GetMapping("/formasDePago") //obtener el listado de Formas de Pago
-    public ResponseEntity<List<FormaPago>> getAllFormaPagos(){
+    public ResponseEntity<List<FormaPago>> getAllFormaPagos() {
         List<FormaPago> listaFormasPago = formaPagoServicio.findAll();
         return new ResponseEntity<List<FormaPago>>(listaFormasPago, HttpStatus.OK);
     }
 
     @PostMapping("/formaPago/create") //Crear Forma De Pago
-    public ResponseEntity<FormaPago> createFormaPago(@RequestBody CrearFormaPago crearFormaPago){
+    public ResponseEntity<FormaPago> createFormaPago(@RequestBody CrearFormaPago crearFormaPago) {
         FormaPago formaPago = new FormaPago();
         formaPago.setTipoPago(crearFormaPago.getTipoPago());
         formaPago.setMeses(crearFormaPago.getMeses());
@@ -49,8 +49,8 @@ public class FormaPagoControlador {
     public ResponseEntity<FormaPago> updateFormaPago(@RequestBody ActualizarFormaPago actualizarFormaPago) {
         Optional<FormaPago> formaPagoOptional = formaPagoServicio.findById(actualizarFormaPago.getId());
         if (formaPagoOptional.isEmpty()) {
-            FormaPago formaPago =formaPagoOptional.orElseThrow(FormaPagoNoEncontradoException::new);
-            return new ResponseEntity <FormaPago>(formaPago,HttpStatus.OK);
+            FormaPago formaPago = formaPagoOptional.orElseThrow(FormaPagoNoEncontradoException::new);
+            return new ResponseEntity<FormaPago>(formaPago, HttpStatus.OK);
         }
         FormaPago formaPagoEncontrada = formaPagoOptional.get();
         formaPagoEncontrada.setTipoPago(actualizarFormaPago.getTipoPago());
@@ -61,6 +61,7 @@ public class FormaPagoControlador {
         formaPagoServicio.save(formaPagoEncontrada);
         return ResponseEntity.ok(formaPagoEncontrada);
     }
+
     @DeleteMapping("/formaPago/delete/{id}")
     public ResponseEntity<String> deleteFormaPago(@PathVariable int id) {
         formaPagoServicio.delete(id);

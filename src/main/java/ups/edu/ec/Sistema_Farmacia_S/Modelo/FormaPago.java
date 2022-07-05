@@ -4,9 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "formaPago")
+@Table(name = "forma_pago")
 public class FormaPago implements Serializable {
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -16,6 +16,7 @@ public class FormaPago implements Serializable {
     private String numeroTarjeta;
     private double vuelto;
     private int meses;
+
     public FormaPago() {
     }
 
@@ -27,7 +28,6 @@ public class FormaPago implements Serializable {
         this.vuelto = vuelto;
         this.meses = meses;
     }
-
 
 
     public int getId() {

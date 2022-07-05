@@ -11,6 +11,6 @@ public interface ClienteRepositorio extends CrudRepository<Cliente, Integer> {
     @Query("select p.nombre from Cliente p")
     List<String> finallNombres();
 
-    @Query("select c from Cliente c where c.id=:id")
-    Cliente buscaIDCliente(int id);
+    @Query("select c from Cliente c where c.identificador =:cedula")
+    Cliente buscaIDCliente(String cedula);
 }

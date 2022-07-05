@@ -8,7 +8,7 @@ import java.util.Date;
         query = "SELECT c FROM Cliente c WHERE c.id >= :level")
 @Entity
 @Table(name = "cliente")
-public class Cliente extends Entidad  implements Serializable{
+public class Cliente extends Entidad implements Serializable {
 
 
     @Column(name = "fecha_Nacimiento")
@@ -16,6 +16,10 @@ public class Cliente extends Entidad  implements Serializable{
     private Date fechaNacimiento;
     //@OneToOne(cascade = CascadeType.ALL, mappedBy = "cliente")
     //private CabeceraVenta cabeceraVenta;
+
+    @OneToOne
+    @JoinColumn(name="forma_pago")
+    private FormaPago formaPago;
 
     public Cliente() {
     }
@@ -31,6 +35,14 @@ public class Cliente extends Entidad  implements Serializable{
 
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public FormaPago getFormaPago() {
+        return formaPago;
+    }
+
+    public void setFormaPago(FormaPago formaPago) {
+        this.formaPago = formaPago;
     }
 
     @Override
