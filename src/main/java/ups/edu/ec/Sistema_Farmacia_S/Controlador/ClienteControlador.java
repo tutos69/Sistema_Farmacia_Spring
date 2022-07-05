@@ -24,6 +24,7 @@ public class ClienteControlador {
 
     @PostMapping("/cliente/create")
     public ResponseEntity<Cliente> createPersona(@RequestBody CrearCliente crearCliente) {
+        // no mismo
         Cliente cliente = new Cliente();
         cliente.setIdentificador(crearCliente.getIdentificador());
         cliente.setApellido(crearCliente.getApellido());
