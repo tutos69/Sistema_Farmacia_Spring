@@ -19,6 +19,7 @@ public class Cliente extends Entidad implements Serializable {
 
     @OneToOne
     @JoinColumn(name="forma_pago")
+
     private FormaPago formaPago;
 
     public Cliente() {
