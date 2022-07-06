@@ -130,7 +130,7 @@ public class PedidoControlador {
         pedido.setCostoEnvio(0);
         pedido.setTiempoEspera(null);
         pedido.setTotal(carritoCabecera.getSubtotal());
-        pedido.setEntidad(usuario.getEntidad());
+
         Cliente cliente = (Cliente) clienteServicio.buscaIdCliente(usuario.getEntidad().getIdentificador());
         pedido.setFormaPago(cliente.getFormaPago());
 
@@ -164,7 +164,7 @@ public class PedidoControlador {
         pedido.setCostoEnvio(0);
         pedido.setTiempoEspera(null);
         pedido.setTotal(carritoCabecera.getSubtotal());
-        pedido.setEntidad(cliente);
+
         pedido.setFormaPago(cliente.getFormaPago());
 
 
