@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.*;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Pedido.ActualizarPedido;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Pedido.CrearPedido;
+import ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Pedido.FacturarAlguienMas;
 import ups.edu.ec.Sistema_Farmacia_S.Servicio.CarritoCabecera.CarritoCabeceraServicio;
 import ups.edu.ec.Sistema_Farmacia_S.Servicio.CarritoDetalle.CarritoDetalleServicio;
 import ups.edu.ec.Sistema_Farmacia_S.Servicio.Cliente.ClienteServicio;
@@ -131,6 +132,13 @@ public class PedidoControlador {
         pedido.setTiempoEspera(null);
         pedido.setTotal(carritoCabecera.getSubtotal());
 
+        pedido.setIdentificador(usuario.getEntidad().getIdentificador());
+        pedido.setNombre(usuario.getEntidad().getNombre());
+        pedido.setApellido(usuario.getEntidad().getApellido());
+        pedido.setCorreo(usuario.getEntidad().getCorreo());
+        pedido.setDireccion(usuario.getEntidad().getDireccion());
+        pedido.setTelefono(usuario.getEntidad().getTelefono());
+
         Cliente cliente = (Cliente) clienteServicio.buscaIdCliente(usuario.getEntidad().getIdentificador());
         pedido.setFormaPago(cliente.getFormaPago());
 
@@ -147,11 +155,11 @@ public class PedidoControlador {
     }
 
 
-    @GetMapping("pedido/facturarAlguienMas/{cedula}")
-    public  ResponseEntity<String> enviarPedidoAnombredeAlguienmas(HttpSession httpSession, @PathVariable String cedula){
+    @PostMapping("pedido/facturarAlguienMas")
+    public  ResponseEntity<String> enviarPedidoAnombredeAlguienmas(HttpSession httpSession, @RequestBody FacturarAlguienMas facturarAlguienMas){
 
         Usuario usuario = (Usuario) httpSession.getAttribute("Usuario");
-        Cliente cliente= clienteServicio.buscaIdCliente(cedula);
+        Cliente cliente = (Cliente) clienteServicio.buscaIdCliente(usuario.getEntidad().getIdentificador());
         CarritoCabecera carritoCabecera= recuperarCarritoCabecera(usuario);
         Pedido pedido = new Pedido();
         PedidoDetalle pedidoDetalle = new PedidoDetalle();
@@ -163,6 +171,14 @@ public class PedidoControlador {
         pedido.setLongitud(0);
         pedido.setCostoEnvio(0);
         pedido.setTiempoEspera(null);
+
+        pedido.setIdentificador(facturarAlguienMas.getIdentificador());
+        pedido.setNombre(facturarAlguienMas.getNombre());
+        pedido.setApellido(facturarAlguienMas.getApellido());
+        pedido.setCorreo(facturarAlguienMas.getCorreo());
+        pedido.setDireccion(facturarAlguienMas.getDireccion());
+        pedido.setTelefono(facturarAlguienMas.getTelefono());
+
         pedido.setTotal(carritoCabecera.getSubtotal());
 
         pedido.setFormaPago(cliente.getFormaPago());
