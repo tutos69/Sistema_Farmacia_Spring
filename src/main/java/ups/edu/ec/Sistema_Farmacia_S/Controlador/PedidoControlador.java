@@ -8,6 +8,7 @@ import ups.edu.ec.Sistema_Farmacia_S.Modelo.*;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Pedido.ActualizarPedido;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Pedido.CrearPedido;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Pedido.FacturarAlguienMas;
+import ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Usuario.ModificarUsuario;
 import ups.edu.ec.Sistema_Farmacia_S.Servicio.CarritoCabecera.CarritoCabeceraServicio;
 import ups.edu.ec.Sistema_Farmacia_S.Servicio.CarritoDetalle.CarritoDetalleServicio;
 import ups.edu.ec.Sistema_Farmacia_S.Servicio.Cliente.ClienteServicio;
@@ -155,6 +156,21 @@ public class PedidoControlador {
     }
 
 
+    @GetMapping("pedido/limpiarCarrito")
+    public  ResponseEntity<String> limpiarCarrito(HttpSession httpSession){
+
+        Usuario usuario = (Usuario) httpSession.getAttribute("Usuario");
+        CarritoCabecera carritoCabecera= recuperarCarritoCabecera(usuario);
+        carritoCabecera.setSubtotal(0.0);
+        carritoCabecera.setListaDetalle(new ArrayList<>());
+
+        carritoCabeceraServicio.crearCarritoCabecera(carritoCabecera);
+        carritoDetalleServicio.eliminarTodosLosProductosDelCarritoDetalle();
+
+        return ResponseEntity.ok("Carrito Limpiado");
+    }
+
+
     @PostMapping("pedido/facturarAlguienMas")
     public  ResponseEntity<String> enviarPedidoAnombredeAlguienmas(HttpSession httpSession, @RequestBody FacturarAlguienMas facturarAlguienMas){
 
@@ -257,23 +273,10 @@ public class PedidoControlador {
     }
 
 
-    @GetMapping("pedido/listarPedidos")
-    public  ResponseEntity<List<Pedido>> listarPedidos(HttpSession httpSession){
 
-        Usuario usuario = (Usuario) httpSession.getAttribute("Usuario");
 
-        List<Pedido> pedidos = pedidoServicio.findAll();
-        List<Pedido> pedididosDeMiUsuario= new ArrayList<>();
 
-        for (Pedido pedido: pedidos
-             ) {
-             if (pedido.getUsuario().equals(usuario)){
-                pedididosDeMiUsuario.add(pedido);
-}
-        }
 
-        return ResponseEntity.ok(pedididosDeMiUsuario);
-    }
 
 
     @GetMapping("pedido/listarPedidoActual")
@@ -290,6 +293,26 @@ public class PedidoControlador {
             pedido= pedido1;
         }
 
+        return ResponseEntity.ok(pedido);
+    }
+
+
+    @PutMapping("/Producto/CancelarPedido")
+    public ResponseEntity<Pedido> updateUsuario(HttpSession httpSession) {
+
+        Usuario usuario = (Usuario) httpSession.getAttribute("Usuario");
+
+        List<Pedido> pedidos = pedidoServicio.findAll();
+        List<Pedido> pedididosDeMiUsuario= new ArrayList<>();
+        Pedido pedido = new Pedido();
+
+        for (Pedido pedido1: pedidos
+        ) {
+            pedido= pedido1;
+        }
+
+        pedido.setEstado(EstadoPedido.CANCELADO);
+        pedidoServicio.save(pedido);
         return ResponseEntity.ok(pedido);
     }
 
