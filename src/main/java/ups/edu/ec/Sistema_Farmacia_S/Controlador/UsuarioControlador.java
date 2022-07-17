@@ -16,6 +16,8 @@ import ups.edu.ec.Sistema_Farmacia_S.Servicio.CarritoCabecera.CarritoCabeceraSer
 import ups.edu.ec.Sistema_Farmacia_S.Servicio.Cliente.ClienteServicio;
 import ups.edu.ec.Sistema_Farmacia_S.Servicio.Usuario.UsuarioServicio;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
@@ -43,10 +45,17 @@ public class UsuarioControlador {
         this.carritoCabeceraServicio = carritoCabeceraServicio;
     }
 
-
+    @PostMapping("usuario/salir")
+    @CrossOrigin(origins = "http://localhost:4200/")
+    public String cerrarSesion(HttpServletRequest request){
+        HttpSession sesion = request.getSession();
+        sesion.invalidate();
+        return "no";
+    }
 
 
     @PostMapping("usuario/create")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Usuario> crearUsuario(@RequestBody CrearUsuario crearUsuario) {
 
         Optional<Cliente> cliente = Optional.ofNullable(clienteServicio.buscaIdCliente(crearUsuario.getCedula()));
@@ -78,14 +87,16 @@ public class UsuarioControlador {
 
 
     @PostMapping("usuario/iniciarSesion")
+    @CrossOrigin(origins = "http://localhost:4200/")
     public ResponseEntity<Usuario> iniciarSesion(@RequestBody RecuperarUsuario recuperarUsuario, HttpSession httpSession) {
-
-
         Usuario usuario= new Usuario();
-        usuario= usuarioServicio.EncontrarUsuario(recuperarUsuario.getUsuario(), recuperarUsuario.getContrasenia());
-      //  this.usuario=usuario;
+        usuario = usuarioServicio.EncontrarUsuario(recuperarUsuario.getUsuario(), recuperarUsuario.getContrasenia());
+        System.out.println(usuario);
+        if (usuario == null){
+            return ResponseEntity.badRequest().build();
+        }
         httpSession.setAttribute("Usuario",usuario);
-        return ResponseEntity.ok(usuario);
+        return new  ResponseEntity(usuario,HttpStatus.OK);
     }
 
 
