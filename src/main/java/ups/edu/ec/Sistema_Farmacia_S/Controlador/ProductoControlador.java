@@ -80,7 +80,7 @@ public class ProductoControlador {
 
     @GetMapping("producto/{nombreSucursal}")
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<List<ProductoSucursal>> getProductoBySucursal(@PathVariable String nombreSucursal, HttpSession httpSession) {
+    public ResponseEntity<List<ProductoSucursal>> getProductoBySucursal(@PathVariable String nombreSucursal) {
 
         List<ProductoSucursal> listaDeProductosPorSucursal = new ArrayList<>();
         List<ProductoSucursal> listaProducto = productoSucursalServicio.findAll();

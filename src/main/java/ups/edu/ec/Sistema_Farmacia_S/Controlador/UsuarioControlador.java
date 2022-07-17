@@ -54,6 +54,17 @@ public class UsuarioControlador {
     }
 
 
+    @GetMapping("usuario/{user}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public ResponseEntity<Usuario> BuscarUsuario(@PathVariable String user){
+        Usuario usuario = usuarioServicio.EncontrarUsuarioUser(user);
+        if (usuario == null){
+            return ResponseEntity.badRequest().build();
+        }
+        return new  ResponseEntity(usuario,HttpStatus.OK);
+    }
+
+
     @PostMapping("usuario/create")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Usuario> crearUsuario(@RequestBody CrearUsuario crearUsuario) {
