@@ -32,6 +32,8 @@ public class UsuarioServicio {
     public Usuario EncontrarUsuario(String usuario, String contrasenia){
          return usuarioRepositorio.findUsuario(usuario,contrasenia);
     }
-
+    public Usuario EncontrarUsuarioUser(String usuario){
+        return usuarioRepositorio.findUsuarioUser(usuario);
+    }
 
 }

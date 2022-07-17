@@ -34,8 +34,6 @@ public class SucursalControlador {
     @CrossOrigin(origins = "http://localhost:4200/")
     //obtener el listado de Pedidos
     public ResponseEntity<Sucursal> escogerSucursal(@PathVariable String nombreClave, HttpSession httpSession) {
-
-
         Sucursal s = null;
         List<Sucursal> sucursals = sucursalServicio.findAll();
         for (Sucursal sucursal: sucursals

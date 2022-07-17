@@ -59,17 +59,19 @@ public class UsuarioControlador {
     public ResponseEntity<Usuario> crearUsuario(@RequestBody CrearUsuario crearUsuario) {
 
         Optional<Cliente> cliente = Optional.ofNullable(clienteServicio.buscaIdCliente(crearUsuario.getCedula()));
-        System.out.printf(String.valueOf(cliente.get()));
         if (cliente.isEmpty()) {
             System.out.println("Cliente no encontrado");
             return ResponseEntity.badRequest().build();
         }
         Usuario usuario = new Usuario();
+        usuario = usuarioServicio.EncontrarUsuarioUser(crearUsuario.getUsuario());
+        if (usuario != null){
+            return ResponseEntity.badRequest().build();
+        }
         usuario.setUsuario(crearUsuario.getUsuario());
         usuario.setContrasenia(crearUsuario.getContrasenia());
         usuario.setRol("CLIENTE");
         usuario.setEntidad(cliente.get());
-
         CarritoCabecera carritoCabecera = new CarritoCabecera();
         carritoCabecera.setUsuario(usuario);
         carritoCabecera.setSubtotal(0.0);

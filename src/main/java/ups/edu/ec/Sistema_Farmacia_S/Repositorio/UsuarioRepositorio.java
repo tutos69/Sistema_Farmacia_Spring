@@ -16,4 +16,6 @@ public interface UsuarioRepositorio extends CrudRepository<Usuario, Integer> {
     @Query("select u from Usuario u where u.usuario=:usuario and u.contrasenia=:contrasenia ")
     Usuario findUsuario(String usuario, String contrasenia);
 
+    @Query("select u from Usuario u where u.usuario=:usuario")
+    Usuario findUsuarioUser(String usuario);
 }

@@ -43,6 +43,9 @@ public class ProductoControlador {
     public ResponseEntity<List<ProductoSucursal>> getProductoByCategoria(@PathVariable String nombreCategoria, HttpSession httpSession) {
         Sucursal sucursal = (Sucursal) httpSession.getAttribute("Sucursal");
 
+        if (sucursal == null){
+            return ResponseEntity.badRequest().build();
+        }
         List<ProductoSucursal> listaProducto = productoSucursalServicio.findAll();
         List<ProductoSucursal> listaDeProductosPorCategoria = new ArrayList<>();
         for (ProductoSucursal productoSucursal: listaProducto
@@ -56,6 +59,24 @@ public class ProductoControlador {
 
         return new ResponseEntity<List<ProductoSucursal>>(listaDeProductosPorCategoria, HttpStatus.OK);
     }
+
+
+    @GetMapping("producto/categoria/{nombreSucursal}/{nombreCategoria}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public ResponseEntity<List<ProductoSucursal>> getProductoByCategoriaSucursal(@PathVariable String nombreSucursal, @PathVariable String nombreCategoria) {
+       
+        List<ProductoSucursal> listaProducto = productoSucursalServicio.findAll();
+        List<ProductoSucursal> listaDeProductosPorCategoria = new ArrayList<>();
+        for (ProductoSucursal productoSucursal: listaProducto
+        ) {
+            System.out.println(productoSucursal);
+            if(productoSucursal.getSucursal().getNombreClave().equals(nombreSucursal) && productoSucursal.getProducto().getCategoria().getNombre().equals(nombreCategoria)){
+                listaDeProductosPorCategoria.add(productoSucursal);
+            }
+        }
+        return new ResponseEntity<List<ProductoSucursal>>(listaDeProductosPorCategoria, HttpStatus.OK);
+    }
+
 
     @GetMapping("producto/{nombreSucursal}")
     @CrossOrigin(origins = "http://localhost:4200")
