@@ -16,7 +16,8 @@ public class CrearFormaPago {
     private double vuelto;
     @JsonProperty
     private int meses;
-
+    @JsonProperty
+    private String usuario;
     public TipoPago getTipoPago() {
         return tipoPago;
     }
@@ -55,5 +56,13 @@ public class CrearFormaPago {
 
     public void setMeses(int meses) {
         this.meses = meses;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 }

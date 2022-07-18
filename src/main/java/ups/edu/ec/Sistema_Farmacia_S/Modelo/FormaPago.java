@@ -16,6 +16,8 @@ public class FormaPago implements Serializable {
     private String numeroTarjeta;
     private double vuelto;
     private int meses;
+    @OneToOne
+    private Usuario usuario;
 
     public FormaPago() {
     }
@@ -97,6 +99,14 @@ public class FormaPago implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override
