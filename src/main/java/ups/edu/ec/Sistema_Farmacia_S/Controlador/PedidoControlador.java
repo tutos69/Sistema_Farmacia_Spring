@@ -225,8 +225,6 @@ public class PedidoControlador {
             pedidoDetalle.setPedido(pedido);
             pedidoDetalleServicio.save(pedidoDetalle);
 
-
-
         }
     }
 

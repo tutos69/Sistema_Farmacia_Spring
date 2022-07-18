@@ -75,8 +75,11 @@ public class UsuarioControlador {
             return ResponseEntity.badRequest().build();
         }
         Usuario usuario = new Usuario();
-        usuario = usuarioServicio.EncontrarUsuarioUser(crearUsuario.getUsuario());
-        if (usuario != null){
+        Usuario usuario1 = new Usuario();
+        usuario1 = usuarioServicio.EncontrarUsuarioUser(crearUsuario.getUsuario());
+        System.out.println(usuario);
+        System.out.println(usuario1);
+        if (usuario1 != null){
             return ResponseEntity.badRequest().build();
         }
         usuario.setUsuario(crearUsuario.getUsuario());
