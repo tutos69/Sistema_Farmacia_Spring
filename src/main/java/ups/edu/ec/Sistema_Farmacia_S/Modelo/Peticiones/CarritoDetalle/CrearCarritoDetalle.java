@@ -12,6 +12,19 @@ public class CrearCarritoDetalle {
     @JsonProperty
     private int cantidad;
 
+    @JsonProperty
+    private String usuario;
+
+    @JsonProperty
+    private String sucursal;
+
+    public String getSucursal() {
+        return sucursal;
+    }
+
+    public void setSucursal(String sucursal) {
+        this.sucursal = sucursal;
+    }
 
     public String getNombreProductoSucursal() {
         return nombreProductoSucursal;
@@ -27,5 +40,13 @@ public class CrearCarritoDetalle {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 }

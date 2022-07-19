@@ -156,17 +156,15 @@ public class PedidoControlador {
     }
 
 
-    @GetMapping("pedido/limpiarCarrito")
+    @GetMapping("pedido/limpiarCarrito/")
+    @CrossOrigin(origins = "http://localhost:4200")
     public  ResponseEntity<String> limpiarCarrito(HttpSession httpSession){
-
         Usuario usuario = (Usuario) httpSession.getAttribute("Usuario");
         CarritoCabecera carritoCabecera= recuperarCarritoCabecera(usuario);
         carritoCabecera.setSubtotal(0.0);
         carritoCabecera.setListaDetalle(new ArrayList<>());
-
         carritoCabeceraServicio.crearCarritoCabecera(carritoCabecera);
         carritoDetalleServicio.eliminarTodosLosProductosDelCarritoDetalle();
-
         return ResponseEntity.ok("Carrito Limpiado");
     }
 

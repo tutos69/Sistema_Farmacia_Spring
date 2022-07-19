@@ -1,5 +1,7 @@
 package ups.edu.ec.Sistema_Farmacia_S.Modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -29,6 +31,7 @@ public class CarritoDetalle implements Serializable {
     private double subtotal;
     @ManyToOne
     @JoinColumn(name="carrito_cabecera")
+    @JsonIgnore
     private CarritoCabecera carritoCabecera;
 
 

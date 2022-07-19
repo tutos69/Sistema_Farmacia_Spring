@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface SucursalRepositorio  extends CrudRepository<Sucursal, Integer> {
 
-    @Query("select s from Sucursal s where s.nombreClave=: nombreClave ")
+    @Query("select s from Sucursal s where s.nombreClave=:nombreClave ")
     Sucursal recuperarSucursal(String nombreClave);
 }
