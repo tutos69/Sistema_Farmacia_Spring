@@ -80,7 +80,7 @@ public class CarritoDetalleControlador
 
     @PostMapping("carrito/agregarProducto1")
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<String> agregarProductoAlCarritoDetalle1(@RequestBody CrearCarritoDetalle crearCarritoDetalle, HttpSession httpSession) {
+    public ResponseEntity<Usuario> agregarProductoAlCarritoDetalle1(@RequestBody CrearCarritoDetalle crearCarritoDetalle, HttpSession httpSession) {
         CarritoDetalle carritoDetalle= new CarritoDetalle();
         Usuario usuario = usuarioServicio.EncontrarUsuarioUser(crearCarritoDetalle.getUsuario());
         if (usuario==null){
@@ -109,7 +109,7 @@ public class CarritoDetalleControlador
             carritoCabeceraServicio.crearCarritoCabecera(carritoCabecera);
             String mensaje = "producto agregado, su nuevo total a pagar es :" + String.valueOf(carritoCabecera.getSubtotal());
             bandera=false;
-            return new ResponseEntity<String>(mensaje, HttpStatus.OK);
+            return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
         }posicion+=1;
 
         }
@@ -123,10 +123,10 @@ public class CarritoDetalleControlador
             carritoCabecera.setSubtotal(carritoCabecera.getSubtotal() + carritoDetalle.getSubtotal());
             carritoCabeceraServicio.crearCarritoCabecera(carritoCabecera);
             String mensaje = "producto agregado, su nuevo total a pagar es :" + String.valueOf(carritoCabecera.getSubtotal());
-            return new ResponseEntity<String>(mensaje, HttpStatus.OK);
+            return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
         }
         String mensaje = "producto no encontrado :" ;
-        return new ResponseEntity<String>(mensaje, HttpStatus.OK);
+        return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 
     }
 
@@ -148,6 +148,18 @@ public class CarritoDetalleControlador
         CarritoCabecera carritoCabecera = recuperarCarritoCabecera(usuario);
 
         return ResponseEntity.ok(carritoCabecera.getListaDetalle());
+    }
+
+    @GetMapping("carrito/total/{us}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public ResponseEntity<CarritoCabecera> listarCarrito2(@PathVariable String us){
+        Usuario usuario = usuarioServicio.EncontrarUsuarioUser(us);
+        if (us==null){
+            return ResponseEntity.badRequest().build();
+        }
+        CarritoCabecera carritoCabecera = recuperarCarritoCabecera(usuario);
+
+        return ResponseEntity.ok(carritoCabecera);
     }
 
 

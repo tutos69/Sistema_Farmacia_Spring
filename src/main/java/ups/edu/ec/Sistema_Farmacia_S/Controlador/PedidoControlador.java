@@ -156,6 +156,26 @@ public class PedidoControlador {
     }
 
 
+    public double calcularPrecioPedido(Pedido pedido,Sucursal sucursal){
+        double radioTierra = 6371;//en kilómetros
+        double dLat = Math.toRadians(pedido.getLatitud() - sucursal.getLatitud());
+        double dLng = Math.toRadians(pedido.getLongitud() - sucursal.getLongitud());
+        double sindLat = Math.sin(dLat / 2);
+        double sindLng = Math.sin(dLng / 2);
+        double va1 = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
+                * Math.cos(Math.toRadians(sucursal.getLatitud())) * Math.cos(Math.toRadians(pedido.getLatitud()));
+        double va2 = 2 * Math.atan2(Math.sqrt(va1), Math.sqrt(1 - va1));
+        double distancia = radioTierra * va2;
+        if(distancia <= 2){
+            return 2.00;
+        }else if(distancia > 2 && distancia <= 5){
+            return 3.00;
+        }else if(distancia >= 5){
+            return 5.00;
+        }
+        return 0;
+    }
+
     @GetMapping("pedido/limpiarCarrito/")
     @CrossOrigin(origins = "http://localhost:4200")
     public  ResponseEntity<String> limpiarCarrito(HttpSession httpSession){
@@ -170,7 +190,7 @@ public class PedidoControlador {
 
     @GetMapping("pedido/limpiarCarrito/{usu}")
     @CrossOrigin(origins = "http://localhost:4200")
-    public  ResponseEntity<String> limpiarCarrito1(@PathVariable String usu){
+    public  ResponseEntity<Usuario> limpiarCarrito1(@PathVariable String usu){
         Usuario usuario = usuarioServicio.EncontrarUsuarioUser(usu);
         if (usuario==null){
             return ResponseEntity.badRequest().build();
@@ -180,7 +200,7 @@ public class PedidoControlador {
         carritoCabecera.setListaDetalle(new ArrayList<>());
         carritoCabeceraServicio.crearCarritoCabecera(carritoCabecera);
         carritoDetalleServicio.eliminarTodosLosProductosDelCarritoDetalle();
-        return ResponseEntity.ok("Carrito Limpiado");
+        return ResponseEntity.ok(usuario);
     }
 
     @PostMapping("pedido/facturarAlguienMas")
