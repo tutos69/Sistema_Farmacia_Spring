@@ -86,23 +86,48 @@ public class CarritoDetalleControlador
         if (usuario==null){
             return ResponseEntity.badRequest().build();
         }
-        System.out.println(usuario.toString());
-        System.out.println(crearCarritoDetalle.getCantidad());
-        System.out.println(crearCarritoDetalle.getNombreProductoSucursal());
+        //System.out.println(usuario.toString());
+        //System.out.println(crearCarritoDetalle.getCantidad());
+        //System.out.println(crearCarritoDetalle.getNombreProductoSucursal());
         CarritoCabecera carritoCabecera= recuperarCarritoCabecera(usuario);
-        System.out.println(crearCarritoDetalle.getSucursal());
+        //System.out.println(crearCarritoDetalle.getSucursal());
         ProductoSucursal productoSucursal= recuperarProducto1(crearCarritoDetalle.getNombreProductoSucursal(),crearCarritoDetalle.getSucursal());
         //System.out.println(productoSucursal);
-        carritoDetalle.setCantidad(crearCarritoDetalle.getCantidad());
-        carritoDetalle.setProductoSucursal(productoSucursal);
-        carritoDetalle.setPrecio(productoSucursal.getProducto().getPrecio());
-        carritoDetalle.setSubtotal(productoSucursal.getProducto().getPrecio()*crearCarritoDetalle.getCantidad());
-        carritoDetalle.setCarritoCabecera(carritoCabecera);
-        carritoDetalleServicio.agregarProductoAlCarritoDetalle(carritoDetalle);
-        carritoCabecera.setSubtotal(carritoCabecera.getSubtotal()+carritoDetalle.getSubtotal());
-        carritoCabeceraServicio.crearCarritoCabecera(carritoCabecera);
-        String mensaje = "producto agregado, su nuevo total a pagar es :" + String.valueOf(carritoCabecera.getSubtotal());
+        List<CarritoDetalle> listaDetalle = carritoCabecera.getListaDetalle();
+        int posicion=0;
+        boolean bandera=true;
+        for (CarritoDetalle detalle : listaDetalle
+        ){ if(productoSucursal.equals(detalle.getProductoSucursal())){
+            CarritoDetalle carritoDetalle1 =carritoCabecera.getListaDetalle().get(posicion);
+            carritoDetalle1.setCantidad(detalle.getCantidad()+crearCarritoDetalle.getCantidad());
+            carritoDetalle1.setSubtotal(productoSucursal.getProducto().getPrecio()*carritoDetalle1.getCantidad());
+            carritoDetalle1.setCarritoCabecera(carritoCabecera);
+           // carritoDetalleServicio.agregarProductoAlCarritoDetalle(carritoDetalle);
+
+            carritoCabecera.setSubtotal(carritoCabecera.getSubtotal()+carritoDetalle1.getSubtotal());
+            carritoCabecera.getListaDetalle().set(posicion,carritoDetalle1);
+            carritoCabeceraServicio.crearCarritoCabecera(carritoCabecera);
+            String mensaje = "producto agregado, su nuevo total a pagar es :" + String.valueOf(carritoCabecera.getSubtotal());
+            bandera=false;
+            return new ResponseEntity<String>(mensaje, HttpStatus.OK);
+        }posicion+=1;
+
+        }
+        if(bandera) {
+            carritoDetalle.setCantidad(crearCarritoDetalle.getCantidad());
+            carritoDetalle.setProductoSucursal(productoSucursal);
+            carritoDetalle.setPrecio(productoSucursal.getProducto().getPrecio());
+            carritoDetalle.setSubtotal(productoSucursal.getProducto().getPrecio() * crearCarritoDetalle.getCantidad());
+            carritoDetalle.setCarritoCabecera(carritoCabecera);
+            carritoDetalleServicio.agregarProductoAlCarritoDetalle(carritoDetalle);
+            carritoCabecera.setSubtotal(carritoCabecera.getSubtotal() + carritoDetalle.getSubtotal());
+            carritoCabeceraServicio.crearCarritoCabecera(carritoCabecera);
+            String mensaje = "producto agregado, su nuevo total a pagar es :" + String.valueOf(carritoCabecera.getSubtotal());
+            return new ResponseEntity<String>(mensaje, HttpStatus.OK);
+        }
+        String mensaje = "producto no encontrado :" ;
         return new ResponseEntity<String>(mensaje, HttpStatus.OK);
+
     }
 
 

@@ -168,6 +168,20 @@ public class PedidoControlador {
         return ResponseEntity.ok("Carrito Limpiado");
     }
 
+    @GetMapping("pedido/limpiarCarrito/{usu}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public  ResponseEntity<String> limpiarCarrito1(@PathVariable String usu){
+        Usuario usuario = usuarioServicio.EncontrarUsuarioUser(usu);
+        if (usuario==null){
+            return ResponseEntity.badRequest().build();
+        }
+        CarritoCabecera carritoCabecera= recuperarCarritoCabecera(usuario);
+        carritoCabecera.setSubtotal(0.0);
+        carritoCabecera.setListaDetalle(new ArrayList<>());
+        carritoCabeceraServicio.crearCarritoCabecera(carritoCabecera);
+        carritoDetalleServicio.eliminarTodosLosProductosDelCarritoDetalle();
+        return ResponseEntity.ok("Carrito Limpiado");
+    }
 
     @PostMapping("pedido/facturarAlguienMas")
     public  ResponseEntity<String> enviarPedidoAnombredeAlguienmas(HttpSession httpSession, @RequestBody FacturarAlguienMas facturarAlguienMas){
