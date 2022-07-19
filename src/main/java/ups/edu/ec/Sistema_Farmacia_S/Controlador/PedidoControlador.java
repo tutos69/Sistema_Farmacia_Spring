@@ -163,9 +163,9 @@ public class PedidoControlador {
         return ResponseEntity.ok("pedido enviado");
     }
 
-    @GetMapping("pedido/enviar/{us}")
+    @GetMapping("pedido/enviar/{us}/{longitud}/{latitud}")
     @CrossOrigin(origins = "http://localhost:4200")
-    public  ResponseEntity<Usuario> enviarPedido1(@PathVariable String us){
+    public  ResponseEntity<Usuario> enviarPedido1(@PathVariable String us,@PathVariable double longitud,@PathVariable double latitud){
         Usuario usuario = usuarioServicio.EncontrarUsuarioUser(us);
         if (usuario==null){
             return ResponseEntity.badRequest().build();
@@ -176,10 +176,9 @@ public class PedidoControlador {
         pedido.setUsuario(usuario);
         pedido.setEstado(EstadoPedido.RECIBIDO);
 
-        pedido.setLatitud(0);
-        pedido.setLongitud(0);
-        pedido.setCostoEnvio(0);
-        pedido.setTiempoEspera(null);
+        pedido.setLatitud(latitud);
+        pedido.setLongitud(longitud);
+
         pedido.setTotal(carritoCabecera.getSubtotal());
 
         pedido.setIdentificador(usuario.getEntidad().getIdentificador());
@@ -191,6 +190,10 @@ public class PedidoControlador {
 
         Cliente cliente = (Cliente) clienteServicio.buscaIdCliente(usuario.getEntidad().getIdentificador());
         pedido.setFormaPago(cliente.getFormaPago());
+        Sucursal sucursal= carritoCabecera.getListaDetalle().get(0).getProductoSucursal().getSucursal();
+        pedido.setCostoEnvio(calcularPrecioPedido(pedido,sucursal));
+        pedido.setTiempoEspera(null);
+
         pedidoServicio.save(pedido);
         guardarPedidoDetalles(carritoCabecera,pedido);
         carritoCabecera.setSubtotal(0.0);
@@ -199,6 +202,8 @@ public class PedidoControlador {
         carritoDetalleServicio.eliminarTodosLosProductosDelCarritoDetalle();
         return ResponseEntity.ok(usuario);
     }
+
+
 
 
     public double calcularPrecioPedido(Pedido pedido,Sucursal sucursal){
