@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.*;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Pedido.ActualizarPedido;
+import ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Pedido.CancelarPedido;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Pedido.CrearPedido;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Pedido.FacturarAlguienMas;
 import ups.edu.ec.Sistema_Farmacia_S.Modelo.Peticiones.Usuario.ModificarUsuario;
@@ -80,10 +81,22 @@ public class PedidoControlador {
     }
 
 
-    @GetMapping("/pedidos") //obtener el listado de Pedidos
-    public ResponseEntity<List<Pedido>> getAllPedidos() {
+    @GetMapping("/pedidos/{usu}") //obtener el listado de Pedidos
+    @CrossOrigin(origins = "http://localhost:4200")
+    public ResponseEntity<List<Pedido>> getAllPedidos(@PathVariable String usu) {
+        Usuario usuario = usuarioServicio.EncontrarUsuarioUser(usu);
+        if (usuario==null){
+            return ResponseEntity.badRequest().build();
+        }
         List<Pedido> listaPedidos = pedidoServicio.findAll();
-        return new ResponseEntity<List<Pedido>>(listaPedidos, HttpStatus.OK);
+        List<Pedido> listaPedidos1 = new ArrayList<>();
+        for (Pedido p : listaPedidos) {
+            if (p.getUsuario().getUsuario().equals(usuario.getUsuario())){
+                listaPedidos1.add(p);
+            }
+
+        }
+        return new ResponseEntity<List<Pedido>>(listaPedidos1, HttpStatus.OK);
     }
 
     @GetMapping("pedido/usuario") //obtener el listado de Pedidos
@@ -123,7 +136,6 @@ public class PedidoControlador {
         CarritoCabecera carritoCabecera= recuperarCarritoCabecera(usuario);
         Pedido pedido = new Pedido();
         PedidoDetalle pedidoDetalle = new PedidoDetalle();
-
         pedido.setUsuario(usuario);
         pedido.setEstado(EstadoPedido.RECIBIDO);
 
@@ -142,17 +154,50 @@ public class PedidoControlador {
 
         Cliente cliente = (Cliente) clienteServicio.buscaIdCliente(usuario.getEntidad().getIdentificador());
         pedido.setFormaPago(cliente.getFormaPago());
-
-
         pedidoServicio.save(pedido);
         guardarPedidoDetalles(carritoCabecera,pedido);
-
         carritoCabecera.setSubtotal(0.0);
         carritoCabecera.setListaDetalle(new ArrayList<>());
-
         carritoCabeceraServicio.crearCarritoCabecera(carritoCabecera);
         carritoDetalleServicio.eliminarTodosLosProductosDelCarritoDetalle();
         return ResponseEntity.ok("pedido enviado");
+    }
+
+    @GetMapping("pedido/enviar/{us}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public  ResponseEntity<Usuario> enviarPedido1(@PathVariable String us){
+        Usuario usuario = usuarioServicio.EncontrarUsuarioUser(us);
+        if (usuario==null){
+            return ResponseEntity.badRequest().build();
+        }
+        CarritoCabecera carritoCabecera= recuperarCarritoCabecera(usuario);
+        Pedido pedido = new Pedido();
+        PedidoDetalle pedidoDetalle = new PedidoDetalle();
+        pedido.setUsuario(usuario);
+        pedido.setEstado(EstadoPedido.RECIBIDO);
+
+        pedido.setLatitud(0);
+        pedido.setLongitud(0);
+        pedido.setCostoEnvio(0);
+        pedido.setTiempoEspera(null);
+        pedido.setTotal(carritoCabecera.getSubtotal());
+
+        pedido.setIdentificador(usuario.getEntidad().getIdentificador());
+        pedido.setNombre(usuario.getEntidad().getNombre());
+        pedido.setApellido(usuario.getEntidad().getApellido());
+        pedido.setCorreo(usuario.getEntidad().getCorreo());
+        pedido.setDireccion(usuario.getEntidad().getDireccion());
+        pedido.setTelefono(usuario.getEntidad().getTelefono());
+
+        Cliente cliente = (Cliente) clienteServicio.buscaIdCliente(usuario.getEntidad().getIdentificador());
+        pedido.setFormaPago(cliente.getFormaPago());
+        pedidoServicio.save(pedido);
+        guardarPedidoDetalles(carritoCabecera,pedido);
+        carritoCabecera.setSubtotal(0.0);
+        carritoCabecera.setListaDetalle(new ArrayList<>());
+        carritoCabeceraServicio.crearCarritoCabecera(carritoCabecera);
+        carritoDetalleServicio.eliminarTodosLosProductosDelCarritoDetalle();
+        return ResponseEntity.ok(usuario);
     }
 
 
@@ -174,6 +219,25 @@ public class PedidoControlador {
             return 5.00;
         }
         return 0;
+    }
+
+
+    @GetMapping("pedido/listarPedidoActual/{ur}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public  ResponseEntity<Pedido> verpedidoActual1(@PathVariable String ur){
+
+        Usuario usuario = usuarioServicio.EncontrarUsuarioUser(ur);
+        if (usuario==null){
+            return ResponseEntity.badRequest().build();
+        }
+        List<Pedido> pedidos = pedidoServicio.findAll();
+       // List<Pedido> pedididosDeMiUsuario= new ArrayList<>();
+        Pedido pedido = new Pedido();
+        for (Pedido pedido1: pedidos
+        ) {
+            pedido= pedido1;
+        }
+        return ResponseEntity.ok(pedido);
     }
 
     @GetMapping("pedido/limpiarCarrito/")
@@ -327,20 +391,35 @@ public class PedidoControlador {
     }
 
 
+//    @PutMapping("/Producto/CancelarPedido")
+//    public ResponseEntity<Pedido> updateUsuario(HttpSession httpSession) {
+//        Usuario usuario = (Usuario) httpSession.getAttribute("Usuario");
+//        List<Pedido> pedidos = pedidoServicio.findAll();
+//        List<Pedido> pedididosDeMiUsuario= new ArrayList<>();
+//        Pedido pedido = new Pedido();
+//        for (Pedido pedido1: pedidos
+//        ) {
+//            pedido= pedido1;
+//        }
+//        pedido.setEstado(EstadoPedido.CANCELADO);
+//        pedidoServicio.save(pedido);
+//        return ResponseEntity.ok(pedido);
+//    }
     @PutMapping("/Producto/CancelarPedido")
-    public ResponseEntity<Pedido> updateUsuario(HttpSession httpSession) {
-
-        Usuario usuario = (Usuario) httpSession.getAttribute("Usuario");
-
+    @CrossOrigin(origins = "http://localhost:4200")
+    public ResponseEntity<Pedido> updateUsuario1(@RequestBody CancelarPedido cancelarPedido) {
+        Usuario usuario = usuarioServicio.EncontrarUsuarioUser(cancelarPedido.getUsuario());
+        if (usuario==null){
+            return ResponseEntity.badRequest().build();
+        }
+        System.out.println(usuario);
         List<Pedido> pedidos = pedidoServicio.findAll();
         List<Pedido> pedididosDeMiUsuario= new ArrayList<>();
         Pedido pedido = new Pedido();
-
         for (Pedido pedido1: pedidos
         ) {
             pedido= pedido1;
         }
-
         pedido.setEstado(EstadoPedido.CANCELADO);
         pedidoServicio.save(pedido);
         return ResponseEntity.ok(pedido);
